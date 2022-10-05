@@ -1,0 +1,209 @@
+"https://ya.cc/t/bi3S7iYi3f7v4j"
+
+
+Книги - Бакин Денис   Media csv_sample, csv_load,  general_lib_run_code, EntertainmentCenter
+Музыка - Евкарпиди Николас ListOperator, Media, Games
+Игры - Корноушенко Игорь Book, Track
+#Фильмы -
+
+
+
+CSV:
+comma separated values
+    \,
+a = ['ggg', 'fff', 'rrr']
+','.join(a) ; , " "
+'ggg,fff,rrr'
+a = [1, 'name', 'author', 1997]
+
+
+'1,name,author,1997'
+'0,name,author,1997'
+'2,name,author,1997'
+'1,name,author,1997'
+'1,name,author,1997'
+'1,name,author,1997'
+
+BOOK:'<type:1 - book>,<name>,<author>,<year>,<genre>,<ration>,<age_restriction>,<filename>'
+TRACK:'<type:2 - track>,<name>,<author>,<year>,<genre>,<ration>,<age_restriction>,<filename>,<duration>'
+GAME'<type:3 - game>,<name>,<author>,<year>,<genre>,<ration>,<age_restriction>, <multiplayer>,<platforms>'
+
+
+csv_file
+csv_file.writelines([[...], [...], [...], [...]])
+csv_file.close()
+
+
+
+По классу на каждый предмет:
+
+(ссылка на ресурс)
+
+class Media default params
+    name -> str # название книги
+    author -> Author # автор книги
+    year -> int # год написания
+    genre -> genre # жанр
+    rating -> float # оценка книги в широких массах
+    age_restriction -> int # возрастное ограничение
+
+    @method
+    __str__
+
+        на каждый атрибут get-set
+    def get_name(self) -> self.name
+    def set_name(self, new_name: str) -> self.name = new_name
+    ...
+    в каждом методе, который имеет аргумент, делаем валидацию
+    new_name == 123 -> ValueError('wtf happend')
+    если тип: TypeError('what happend')
+
+    save(inst_type, *args):
+        save to csv
+
+func(test=True, name=name, age=27.........)
+def func(**kwargs):
+    kwargs = {'test': True, 'name': name}
+
+
+book = Book(a, b, genre)
+
+class Book:
+    def __init__(a, b, genre):
+        pass
+
+class Novel(Book):
+    def __init__(a, b)
+      super().__init__(a, b, 'novel')
+
+my_novel = Novel('me', 2030)
+
+book = Book(genre,<ration>,<age_restriction>, <filename>,<duration>)
+
+
+class Book(Media):
+    def __init__(self, *args, filename, duration):
+        super().__init__(*args)
+        self.duration = duration
+        self.filename = filename
+
+
+
+
+    self.name = kwargs['name']
+    filename -> str# название файла где лежит книга
+
+    @methods
+    quote_for_article -> строка для ресурсов статьи по ГОСТу
+    (Потемкин В.К., Социальное партнерство: формирование, оценка, регулирование. 2002. 202 с.)
+
+    get_file -> python.file
+    return open('data/'+filename ...)
+
+    get_content -> str
+
+    save():
+        super().save('', *args) - записать обратно в файл строки без строки текущего объекта. Поиск по self.id.
+        записывая обратно в файл список без удаленной строки с середине, но добавленной строкой с данными текущего объекта в конце
+
+
+
+class Track(Media)
+    super().__init__(**kwargs)
+    filename -> str #название файла где лежит трек
+    duration -> int #seconds
+
+    @methods
+    # новые геттеры и сеттеры
+    play -> audio output
+
+    # через библиотеку wave
+    get_music_file -> wave.file
+    set_volume_coef(<float>) - домножаем на coef и в int
+    save():
+        super().save('', *args)
+
+
+
+
+
+class Games(Media)
+    super().__init__(**kwargs)
+    platforms = []
+    multiplayer -> bool
+
+
+    @methods
+    # новые геттеры и сеттеры
+    save():
+        super().save('', *args)
+
+
+
+
+
+
+#sample = EntertainmentCenter()
+#sample.music.add(book) (book -> Track)
+
+
+class EntertainmentCenter
+    self.books = ListOperator([], Book)
+    music -> ListOperator
+    books -> ListOperator
+    games -> ListOperator
+
+
+
+class ListOperator
+    media -> list
+    type -> [Track, Book, ...]
+
+    @methods
+    add -> if not isinstance(new_inst, type)
+    filter(author=None, below_rating=0, name=None, earlier_year=datetime.datetime.now().year(?), below_age_restrictions=21)->int=cnt (how many books were deleted)
+        if cnt == 0:
+            Warning('...')
+
+    get_random
+    save() - implement save() to all instances
+
+    print(lines= 10, print_all=False) -> <lines> strs
+
+    intersect_with(<ListOperator>) -> ListOperator
+
+    override - & +
+
+
+
+
+
+
+0) Работа командная, нужно будет созать одну гит репу и работать в ней
+1) Реализовать <библиотеку> [музыки, книг, игр, фильмов]
+2) Написать тесты к своему коду
+3) Создать несколько экземлпяров класса, с возможностью общения между ними
+   (возможность импортить музыку из spotify, возможность обмена книгами и т.д.)
+4) Реализовать класс EntertainmentCenter, в котором будут все библиотеки
+4^) Не забываем про тесты
+*) Приветствуются использование библиотек (например, для чтения данных из
+   csv/sql, работы с картинками)
+
+Разбалловки:
++ - я оценил ваши старания
+++ - я впечатлен стараниями
++++ - вы - молодец!
+
+8 - Написаный код адеватен и работает
+9 - Написаны тесты, исползуются различные библиотеки для работы с данными там,
+    где это необходимо, функционал реализован на достаточном уровне. Код
+    задокументирван: есть докстринги, есть комментарии, есть пояснения в
+    репозитории
+10 - Правильная структура репозитория, есть переиспользование кода (через
+     импорты, наследование и т.д., т.е. адекватная работа в команде).
+     В репе есть UML-диаграммы для описание архитектуры вашего решения
+
+Три дедлайна:
+*Конец занятия
+*Сегодня ночью (2 AM UTC+3)
+*07.10 23:59
