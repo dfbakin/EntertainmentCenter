@@ -4,6 +4,9 @@ import webbrowser
 from main import Media
 
 
+# TODO doc strings with required data types
+#  probably comments (I can't imagine where they are necessary here)
+
 def lang_of_symbol(c: str):
     if 122 >= ord(c.lower()) >= 97:
         return 'en'
@@ -25,6 +28,8 @@ class Movie(Media):
     def get_filename(self):
         pass
 
+    # TODO get-set to all unique parameters for Movie: duration, director, etc.
+
     def __str__(self):
         return f'Фильм снят режисером {self.director} в {self.year} году. В главной роли снимается {self.main_actor}. {self.short_description}'
 
@@ -38,4 +43,9 @@ class Movie(Media):
         if page.exists():
             webbrowser.open(page.fullurl)
         else:
+            # TODO change print to raise error
             print('Wiki page not found')
+    # TODO method save...
+    #  def save(self, ent_center_inst: EntertainmentCenter)
+    #  call method save(ent_center_inst, self, *argd),
+    #  where args is the list with all the parameters unique for class Movie
