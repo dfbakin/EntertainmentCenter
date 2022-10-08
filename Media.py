@@ -1,7 +1,7 @@
 import hashlib
 from random import randint
 
-import Author.author
+# import Author.author
 
 
 class Media:
@@ -50,7 +50,7 @@ class Media:
 
 	@name.setter
 	def name(self, new_name: str):
-		if isinstance(new_name, int):
+		if not isinstance(new_name, str):
 			raise TypeError("The name must be a string.")
 
 		self._name = new_name
@@ -61,7 +61,7 @@ class Media:
 
 	@author.setter
 	def author(self, new_author: str):
-		if isinstance(new_author, str):
+		if not isinstance(new_author, str):
 			raise TypeError("Author must be a str.")
 		self._author = new_author
 
@@ -71,7 +71,7 @@ class Media:
 
 	@year.setter
 	def year(self, new_year: int):
-		if isinstance(new_year, int):
+		if not isinstance(new_year, int):
 			raise TypeError("The year must be an integer.")
 		if new_year < 0:
 			raise ValueError("The year must be a positive integer.")
@@ -83,7 +83,7 @@ class Media:
 
 	@genre.setter
 	def genre(self, new_genre: str):
-		if isinstance(new_genre, str):
+		if not isinstance(new_genre, str):
 			raise TypeError("Genre must be a string.")
 		self._genre = new_genre
 
@@ -93,7 +93,7 @@ class Media:
 
 	@rating.setter
 	def rating(self, new_rating: int):
-		if isinstance(new_rating, int):
+		if not isinstance(new_rating, int):
 			raise TypeError("Rating must be an integer.")
 		if new_rating > 100 or new_rating < 0:
 			raise ValueError("Rating is not in [0, 100] interval.")
@@ -104,8 +104,8 @@ class Media:
 		return self.age_restriction
 
 	@age_restriction.setter
-	def age_restriction(self, new_age_restriction: str):
-		if isinstance(new_age_restriction, int):
+	def age_restriction(self, new_age_restriction: int):
+		if not isinstance(new_age_restriction, int):
 			raise TypeError("Age_restriction must be an integer.")
 		if new_age_restriction < 0 or new_age_restriction > 21:
 			raise ValueError("Age restriction is not appropriate.")
