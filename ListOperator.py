@@ -1,5 +1,7 @@
 from enum import Enum
 
+import Media
+
 
 class MediaType(Enum):
 	Unknown: 0
@@ -11,11 +13,11 @@ class MediaType(Enum):
 
 class ListOperator:
 	def __init__(self):
-		self.media = []
+		self.media: list[Media.Media] = []
 		self.type = MediaType.Unknown
 
-	def add(self):
-		raise NotImplemented
+	def add(self, element: Media.Media):
+		return self.media.append(element)
 
 	def sort(self):
 		raise NotImplemented
@@ -26,17 +28,25 @@ class ListOperator:
 	def save(self):
 		raise NotImplemented
 
-	def __and__(self, other):
-		raise NotImplemented
+	def __and__(self, other: list[Media.Media]):
+		set_of_media = set(self.media)
+		set_of_other_media = set(other)
+		return list(set_of_media.intersection(set_of_other_media))
 
-	def __sub__(self, other):
-		raise NotImplemented
+	def __sub__(self, other: list[Media.Media]):
+		set_of_media = set(self.media)
+		set_of_other_media = set(other)
+		return list(set_of_media.difference(set_of_other_media))
 
-	def __add__(self, other):
-		raise NotImplemented
+	def __add__(self, other: list[Media.Media]):
+		# extends the self.media and returns it
+		return self.media.extend(other)
 
 	def print(self):
-		raise NotImplemented
+		printing_str = ""
+		for element in self.media:
+			printing_str += str(element.__repr__())
+		return printing_str
 
 # 	@methods
 #

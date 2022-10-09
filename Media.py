@@ -1,7 +1,7 @@
 import hashlib
 from random import randint
 
-# import Author.author
+import Author.author
 
 
 class Media:
@@ -112,8 +112,8 @@ class Media:
 		self._age_restriction = new_age_restriction
 
 	def __str__(self):
-		return f"A media with name: {self.name} authored by {self.author} in genre of {self.genre} and with rating of " \
-		       f"{self.rating}, available only for people over {self.age_restriction}. "
+		return f"Name: {self.name}; Authored by {self.author}; Genre:  {self.genre}; \nRating of " \
+		       f"{self.rating}; For people over {self.age_restriction}.\n\n"
 
 # TODO
 # save(inst_type, *args):
