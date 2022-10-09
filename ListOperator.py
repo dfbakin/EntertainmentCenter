@@ -1,3 +1,4 @@
+import operator
 from enum import Enum
 
 import Media
@@ -19,11 +20,29 @@ class ListOperator:
 	def add(self, element: Media.Media):
 		return self.media.append(element)
 
-	def sort(self):
-		raise NotImplemented
+	def sort(self, key: str):
+		#TODO
+		# test this Value check
+		# test for sorting by attributes, that are not in Media
+		if not isinstance(key, str):
+			raise TypeError("Key must be a string")
+		if key not in Media.Media.__dir__:
+			raise ValueError("Key must be a name of an attribute")
 
-	def filter(self):
-		raise NotImplemented
+		self.media = sorted(self.media, key=operator.attrgetter(key))
+		return None
+
+	def filter(self, key: str, value):
+
+		if not isinstance(key, str):
+			raise TypeError("Key must be a string")
+		if key not in Media.Media.__dir__:
+			raise ValueError("Key must be a name of an attribute")
+
+		#TODO
+		# test this filtering
+		self.media = [elem for elem in filter(self.media, lambda x: x.key == value)]
+		return None
 
 	def save(self):
 		raise NotImplemented
@@ -42,9 +61,9 @@ class ListOperator:
 		# extends the self.media and returns it
 		return self.media.extend(other)
 
-	def print(self):
+	def print(self, lines_number: int):
 		printing_str = ""
-		for element in self.media:
+		for element in self.media[:lines_number]:
 			printing_str += str(element.__repr__())
 		return printing_str
 
