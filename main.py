@@ -43,12 +43,20 @@ class EntertainmentCenter:
 BOOK: '<type:1 - book>,<name>,<author>,<year>,<genre>,<ration>,<age_restriction>,<filename>'
 
 
+def read_csv_data(path):
+    with open(path, mode='r', encoding='utf-8') as file:
+        reader = csv.reader(file, delimiter=',', quotechar='|')
+        return [line for line in reader if line]
+
+
 # method from Media class
 def save(self, center_inst, obj_inst, *args):
+    prev_data = read_csv_data(center_inst.path_to_file)
     if obj_inst.__class__ not in [Book, Track, Movie, Game]:
         raise TypeError(f'Expected from [Book, Track, Movie, Game], got {obj_inst.__class__} instead')
-    with open(center_inst.path_to_file, mode='w', encoding='utf-8') as file:
+    with open(center_inst.path_to_file, mode='w+', encoding='utf-8') as file:
         writer = csv.writer(file, delimiter=',', quotechar='|')
+        current_id = obj_inst.id
         data = []
         if isinstance(obj_inst, Book):
             data.append('1')
@@ -58,10 +66,16 @@ def save(self, center_inst, obj_inst, *args):
             data.append('3')
         elif isinstance(obj_inst, Movie):
             data.append('4')
-        data.extend([obj_inst.id, obj_inst.name, obj_inst.author, obj_inst.year,
-                     obj_inst.genre, obj_inst.rating, obj_inst.age_restriction, *args])
-        writer.writerow(list(map(str, data)))
+        data.extend([str(obj_inst.id), obj_inst.name, obj_inst.author, str(obj_inst.year),
+                     obj_inst.genre, str(obj_inst.rating),
+                     str(obj_inst.age_restriction), *list(map(str, args))])
+        for i in range(len(prev_data)):
+            if prev_data[i][1] == current_id:
+                prev_data[i] = data
+
+        writer.writerows(list(map(str, prev_data)))
 
 
 if __name__ == '__main__':
-    print(EntertainmentCenter().__class__)
+    print(read_csv_data('data/sample.csv'))
+    # print(EntertainmentCenter().__class__)
