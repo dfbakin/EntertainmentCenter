@@ -6,21 +6,19 @@ class Game(Media):
     # change *args to explicitly stated arguments or kwargs
     def __init__(self, *args):
         super().__init__(*args[:-2])
-        platforms, has_multiplayer = args[-2:]
-        if platforms is None:
-            platforms = []
-        self.platforms = platforms
+        platform, has_multiplayer = args[-2:]
+        self.platform = platform
         self.has_multiplayer = has_multiplayer
 
     @property
     def platforms(self):
         return self.platforms
 
-    @platforms.setter
-    def platforms(self, new_platforms: list):
-        if not isinstance(new_platforms, list):
+    @platform.setter
+    def platform(self, new_platform: str):
+        if not isinstance(new_platform, str):
             raise TypeError("Platforms must be a list of strings.")
-        self._platforms = new_platforms
+        self._platform = new_platform
 
     @property
     def has_multiplayer(self):

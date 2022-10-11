@@ -92,5 +92,7 @@ def save(self, center_inst, obj_inst, *args):
 if __name__ == '__main__':
     sample = EntertainmentCenter()
     sample.movies.add(
-        Movie("Some media", "Ivan Ivanov", 0, "fiction", 0, 21, '123', 12, 'qwe', 'ewq', 1974, '12345678'))
+        Movie("Some media", "Ivan Ivanov", 0, "fiction", 0, 16, '123', 12, 'qwe', 'ewq', 1974, '12345678'))
+    sample.movies.add(
+        Game("the media", "vitaliy", 0, "shooter", 0, 18, ))
     sample.save()
