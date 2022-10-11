@@ -7,13 +7,10 @@ if __name__ == '__main__':
     from Movies import Movie
     from Games import Game
     from ListOperator import ListOperator
+    from Book import Book
 
 
 class Track:
-    pass
-
-
-class Book:
     pass
 
 
@@ -51,9 +48,9 @@ class EntertainmentCenter:
                 elif row[0] == '2':
                     self.music.add(Track(*row[1:]))
                 elif row[0] == '3':
-                    self.music.add(Game(*row[1:]))
+                    self.games.add(Game(*row[1:]))
                 elif row[0] == '4':
-                    self.books.add(Movie(*row[1:]))
+                    self.movies.add(Movie(*row[1:]))
                 else:
                     raise ValueError("CSV file is not correct")
 
@@ -87,9 +84,9 @@ class EntertainmentCenter:
 if __name__ == '__main__':
     sample = EntertainmentCenter()
     sample.load('data/test_sample.csv')
-    sample.print_lines()
+    print(type(sample.games.media[0].has_multiplayer))
     quit()
-    sample.save('data/new_test.csv')
+    sample.save('data/sample.csv')
     quit()
     sample.movies.add(
         Movie("Some media", "Ivan Ivanov", 0, "fiction", 0, 16, '123', 12, 'qwe', 'ewq', 1974, '12345678'))

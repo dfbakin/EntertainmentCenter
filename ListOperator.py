@@ -2,6 +2,7 @@ import operator
 from enum import Enum
 
 from Media import Media
+from random import choice
 
 
 class MediaType(Enum):
@@ -64,6 +65,9 @@ class ListOperator:
         for element in self.media[:lines_number]:
             printing_str += str(element.__repr__())
         return printing_str
+
+    def pick_random(self):
+        return choice(self.media)
 
 # 	@methods
 #

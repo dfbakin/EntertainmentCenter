@@ -32,3 +32,5 @@ class Game(Media):
 
     def get_args(self):
         return [self.platform, self.has_multiplayer]
+
+    # TODO implement subscriptable class via __getitem__

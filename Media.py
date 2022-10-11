@@ -4,7 +4,8 @@ from random import randint
 
 # import Author.author
 
-
+# TODO all integers and bools to str and then valid data:
+#  whether it's possible to convert to required type
 class Media:
     """
     # name -> str  # название книги
@@ -22,6 +23,7 @@ class Media:
             raise TypeError("Name is not a string")
         self._name = name
 
+        # TODO automate
         year = int(year)
         rating = int(rating)
         age_restriction = int(age_restriction)
