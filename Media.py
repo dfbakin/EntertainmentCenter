@@ -22,6 +22,10 @@ class Media:
             raise TypeError("Name is not a string")
         self._name = name
 
+        year = int(year)
+        rating = int(rating)
+        age_restriction = int(age_restriction)
+
         # TODO uncomment
         # implment Author?
         # if not isinstance(author, Author.author):
@@ -31,6 +35,7 @@ class Media:
         #  because @<class_atribute>.setter method is called every time when you run "self.<class_atribute> = value"
         #  just for reference: "https://stackoverflow.com/questions/2627002/whats-the-pythonic-way-to-use-getters-and-setters"
         if not isinstance(year, int):
+            print(year)
             raise TypeError("Year is not an integer")
         self._year = year
 
@@ -47,7 +52,7 @@ class Media:
         self._age_restriction = age_restriction
 
         # generating hash for unique ID
-        #self.id = hashlib.md5(str(randint(1, 10 ** 4)).encode()).digest()[randint(0, 15):randint(16, 27)]
+        # self.id = hashlib.md5(str(randint(1, 10 ** 4)).encode()).digest()[randint(0, 15):randint(16, 27)]
 
     # TODO property can't be called the same as attribute.
     #  "RecursionError: maximum recursion depth exceeded" because return self.name calls @property
@@ -120,8 +125,8 @@ class Media:
         self._age_restriction = new_age_restriction
 
     def __str__(self):
-        return f"Name: {self.name}; Authored by {self.author}; Genre:  {self.genre}; \nRating of " \
-               f"{self.rating}; For people over {self.age_restriction}.\n\n"
+        return f"Name: {self.name}; Authored by {self.author}; Genre:  {self.genre}; Rating of " \
+               f"{self.rating}; For people over {self.age_restriction}."
 
 # TODO
 # save(inst_type, *args):

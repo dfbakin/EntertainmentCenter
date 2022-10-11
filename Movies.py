@@ -2,7 +2,7 @@ import wikipediaapi
 import webbrowser
 from datetime import datetime
 
-from main import EntertainmentCenter, save
+from main import EntertainmentCenter
 from Media import Media
 
 

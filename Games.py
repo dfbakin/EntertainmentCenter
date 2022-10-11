@@ -7,12 +7,12 @@ class Game(Media):
     def __init__(self, *args):
         super().__init__(*args[:-2])
         platform, has_multiplayer = args[-2:]
-        self.platform = platform
-        self.has_multiplayer = has_multiplayer
+        self._platform = platform
+        self._has_multiplayer = has_multiplayer
 
     @property
-    def platforms(self):
-        return self.platforms
+    def platform(self):
+        return self._platform
 
     @platform.setter
     def platform(self, new_platform: str):
@@ -22,10 +22,13 @@ class Game(Media):
 
     @property
     def has_multiplayer(self):
-        return self.has_multiplayer
+        return self._has_multiplayer
 
     @has_multiplayer.setter
     def has_multiplayer(self, new_has_multiplayer: bool):
         if not isinstance(new_has_multiplayer, bool):
             raise TypeError("Has_multiplayer must be of boolean type.")
         self._has_multiplayer = new_has_multiplayer
+
+    def get_args(self):
+        return [self.platform, self.has_multiplayer]
