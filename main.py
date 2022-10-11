@@ -2,8 +2,18 @@ import os
 import csv
 import datetime
 
+# from Media import Media
+if __name__ == '__main__':
+    from Movies import Movie
+    from Games import Game
+    from ListOperator import ListOperator
 
-class ListOperator:
+
+class Track:
+    pass
+
+
+class Book:
     pass
 
 
@@ -13,8 +23,7 @@ class EntertainmentCenter:
         self.books = ListOperator(Book)
         self.games = ListOperator(Game)
         self.movies = ListOperator(Movie)
-        self.path_to_file = str(datetime.datetime.now().time())
-        pass
+        self.path_to_file = f"data/{int(datetime.datetime.now().timestamp())}.csv"
 
     def load(self, path_to_file='data/sample.csv'):
         if not os.path.exists(path_to_file):
@@ -35,28 +44,37 @@ class EntertainmentCenter:
                     raise ValueError("CSV file is not correct")
 
     def save(self):
+        csv_data = []
         for collection in (self.music, self.books, self.games, self.movies):
-            for inst in collection:
-                inst.save(self)
+            for inst in collection.media:
+                row = []
+                if isinstance(inst, Book):
+                    row.append('1')
+                elif isinstance(inst, Track):
+                    row.append('2')
+                elif isinstance(inst, Game):
+                    row.append('3')
+                elif isinstance(inst, Movie):
+                    row.append('4')
+                row.extend([inst.name, inst.author, inst.year,
+                            inst.genre, inst.rating, inst.age_restriction, *inst.get_args()])
+                csv_data.append(list(map(str, row)))
+        if os.path.exists(self.path_to_file):
+            os.remove(self.path_to_file)
+        with open(self.path_to_file, mode='w', encoding='utf-8') as file:
+            writer = csv.writer(file, delimiter=',', quotechar='|')
+            writer.writerows(csv_data)
 
 
-BOOK: '<type:1 - book>,<name>,<author>,<year>,<genre>,<ration>,<age_restriction>,<filename>'
-
-
-def read_csv_data(path):
-    with open(path, mode='r', encoding='utf-8') as file:
-        reader = csv.reader(file, delimiter=',', quotechar='|')
-        return [line for line in reader if line]
+# BOOK: '<type:1 - book>,<name>,<author>,<year>,<genre>,<ration>,<age_restriction>,<filename>'
 
 
 # method from Media class
 def save(self, center_inst, obj_inst, *args):
-    prev_data = read_csv_data(center_inst.path_to_file)
     if obj_inst.__class__ not in [Book, Track, Movie, Game]:
         raise TypeError(f'Expected from [Book, Track, Movie, Game], got {obj_inst.__class__} instead')
-    with open(center_inst.path_to_file, mode='w+', encoding='utf-8') as file:
+    with open(center_inst.path_to_file, mode='w', encoding='utf-8') as file:
         writer = csv.writer(file, delimiter=',', quotechar='|')
-        current_id = obj_inst.id
         data = []
         if isinstance(obj_inst, Book):
             data.append('1')
@@ -66,16 +84,15 @@ def save(self, center_inst, obj_inst, *args):
             data.append('3')
         elif isinstance(obj_inst, Movie):
             data.append('4')
-        data.extend([str(obj_inst.id), obj_inst.name, obj_inst.author, str(obj_inst.year),
-                     obj_inst.genre, str(obj_inst.rating),
-                     str(obj_inst.age_restriction), *list(map(str, args))])
-        for i in range(len(prev_data)):
-            if prev_data[i][1] == current_id:
-                prev_data[i] = data
-
-        writer.writerows(list(map(str, prev_data)))
+        data.extend([obj_inst.id, obj_inst.name, obj_inst.author, obj_inst.year,
+                     obj_inst.genre, obj_inst.rating, obj_inst.age_restriction, *args])
+        writer.writerow(list(map(str, data)))
 
 
 if __name__ == '__main__':
-    print(read_csv_data('data/sample.csv'))
-    # print(EntertainmentCenter().__class__)
+    sample = EntertainmentCenter()
+    sample.movies.add(
+        Movie("Some media", "Ivan Ivanov", 0, "fiction", 0, 16, '123', 12, 'qwe', 'ewq', 1974, '12345678'))
+    sample.movies.add(
+        Game("the media", "vitaliy", 0, "shooter", 0, 18, ))
+    sample.save()
