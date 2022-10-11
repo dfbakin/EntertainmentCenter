@@ -33,13 +33,13 @@ class Movie(Media):
 
     def __init__(self, *args):
         filename, duration, director, main_actor, year, short_description = args[-6:]
-        super(Media, args[:-6]).__init__()
+        super().__init__(*args[:-6])
         self.__filename = filename
-        self.duration = duration
-        self.director = director
-        self.main_actor = main_actor
-        self.short_description = short_description
-        self.year = year
+        self._duration = duration
+        self._director = director
+        self._main_actor = main_actor
+        self._short_description = short_description
+        self._year = year
 
     # getters and setters
     @property
@@ -48,37 +48,37 @@ class Movie(Media):
 
     @property
     def duration(self):
-        return self.duration
+        return self._duration
 
     @duration.setter
     def duration(self, duration):
         if type(duration) != int:
             raise TypeError('Duration must be an integer')
-        self.duration = duration
+        self._duration = duration
 
     @property
     def director(self):
-        return self.director
+        return self._director
 
     @director.setter
     def director(self, name):
         if type(name) != str:
             raise TypeError('Name of director must be a string')
-        self.director = name
+        self._director = name
 
     @property
     def main_actor(self):
-        return self.main_actor
+        return self._main_actor
 
     @main_actor.setter
     def main_actor(self, name):
         if type(name) != str:
             raise TypeError('Name must be a string')
-        self.main_actor = name
+        self._main_actor = name
 
     @property
     def short_description(self):
-        return self.short_description
+        return self._short_description
 
     @short_description.setter
     def short_description(self, description):
@@ -86,11 +86,11 @@ class Movie(Media):
             raise TypeError('Description must be a string')
         if len(description) > 500:
             raise ValueError('Length of description must be less than 500 symbols')
-        self.short_description = description
+        self._short_description = description
 
     @property
     def year(self):
-        return self.year
+        return self._year
 
     @year.setter
     def year(self, year):
@@ -98,7 +98,7 @@ class Movie(Media):
             raise TypeError('Year must be an integer')
         if year > datetime.now().year:
             raise ValueError('Wow. The film from the future. LMAO')
-        self.year = year
+        self._year = year
 
     def __str__(self):
         return f'Фильм снят режисером {self.director} в {self.year} году. В главной роли снимается {self.main_actor}. {self.short_description}'
@@ -120,9 +120,16 @@ class Movie(Media):
         else:
             raise WikiError(page)
 
+    def get_args(self):
+        return [self.filename, self.duration, self.director, self.main_actor, self.year, self.short_description]
+
     def save(self, ent_center_inst: EntertainmentCenter):
         save(ent_center_inst, self,
              [self.__filename, self.duration, self.director, self.main_actor, self.short_description, self.year])
+
+
+Movie("Some media", "Ivan Ivanov", 0, "fiction", 0, 21, '123', 12, 'qwe', 'ewq', 1974,
+      '12345678')
 
 
 class WikiError(BaseException):

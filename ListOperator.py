@@ -12,10 +12,13 @@ class MediaType(Enum):
     Track: 4
 
 
+# TODO can be done iterable
 class ListOperator:
-    def __init__(self):
+    def __init__(self, elem_type):
         self.media: list[Media] = []
-        self.type = MediaType.Unknown
+        # TODO implement Enum (did't figure out how to)
+        # self.type = MediaType.Unknown
+        self.type = elem_type
 
     def add(self, element: Media):
         return self.media.append(element)

@@ -1,10 +1,20 @@
 import os
 import csv
 import datetime
+
 # from Media import Media
-from Movies import Movie
-from Games import Game
-from ListOperator import ListOperator
+if __name__ == '__main__':
+    from Movies import Movie
+    from Games import Game
+    from ListOperator import ListOperator
+
+
+class Track:
+    pass
+
+
+class Book:
+    pass
 
 
 class EntertainmentCenter:
@@ -13,8 +23,7 @@ class EntertainmentCenter:
         self.books = ListOperator(Book)
         self.games = ListOperator(Game)
         self.movies = ListOperator(Movie)
-        self.path_to_file = str(datetime.datetime.now().time())
-        pass
+        self.path_to_file = f"data/{int(datetime.datetime.now().timestamp())}.csv"
 
     def load(self, path_to_file='data/sample.csv'):
         if not os.path.exists(path_to_file):
@@ -37,7 +46,7 @@ class EntertainmentCenter:
     def save(self):
         csv_data = []
         for collection in (self.music, self.books, self.games, self.movies):
-            for inst in collection:
+            for inst in collection.media:
                 row = []
                 if isinstance(inst, Book):
                     row.append('1')
@@ -47,7 +56,7 @@ class EntertainmentCenter:
                     row.append('3')
                 elif isinstance(inst, Movie):
                     row.append('4')
-                row.extend([inst.id, inst.name, inst.author, inst.year,
+                row.extend([inst.name, inst.author, inst.year,
                             inst.genre, inst.rating, inst.age_restriction, *inst.get_args()])
                 csv_data.append(list(map(str, row)))
         if os.path.exists(self.path_to_file):
@@ -57,7 +66,7 @@ class EntertainmentCenter:
             writer.writerows(csv_data)
 
 
-BOOK: '<type:1 - book>,<name>,<author>,<year>,<genre>,<ration>,<age_restriction>,<filename>'
+# BOOK: '<type:1 - book>,<name>,<author>,<year>,<genre>,<ration>,<age_restriction>,<filename>'
 
 
 # method from Media class
@@ -81,4 +90,7 @@ def save(self, center_inst, obj_inst, *args):
 
 
 if __name__ == '__main__':
-    pass
+    sample = EntertainmentCenter()
+    sample.movies.add(
+        Movie("Some media", "Ivan Ivanov", 0, "fiction", 0, 21, '123', 12, 'qwe', 'ewq', 1974, '12345678'))
+    sample.save()
