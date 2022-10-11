@@ -46,6 +46,9 @@ class ListOperator:
         # test this filtering
         self.media = [elem for elem in filter(lambda x: x.key == value, self.media)]
 
+    # TODO fix
+    # doesn't work because of comparasion of custom classes in python
+    # hash? id?
     def __and__(self, other: list[Media]):
         set_of_media = set(self.media)
         set_of_other_media = set(other)

@@ -25,7 +25,6 @@ class Book(Media):
 
     @filename.setter
     def filename(self, new_filename):
-        print('setter is called')
         self._filename = new_filename
 
     def get_file_obj(self):
@@ -36,6 +35,3 @@ class Book(Media):
 
     def get_content(self):
         return self.get_file_obj().read().strip()
-
-
-Book('123')
