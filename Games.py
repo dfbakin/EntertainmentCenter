@@ -1,7 +1,7 @@
 import Media
 
 
-class Games(Media):
+class Game(Media):
 	# TODO
 	# change *args to explicitly stated arguments or kwargs
 	def __init__(self, *args, platforms: list = None, has_multiplayer: bool):

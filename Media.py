@@ -1,7 +1,7 @@
 import hashlib
 from random import randint
 
-import Author.author
+#import Author.author
 
 
 class Media:
@@ -21,8 +21,10 @@ class Media:
 			raise TypeError("Name is not a string")
 		self.name = name
 
-		if not isinstance(author, Author.author):
-			raise TypeError("Author is not an instance of Author class")
+		#TODO uncomment
+		# implment Author?
+		#if not isinstance(author, Author.author):
+			#raise TypeError("Author is not an instance of Author class")
 		self.author = author
 
 		if not isinstance(year, int):

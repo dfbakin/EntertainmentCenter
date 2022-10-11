@@ -1,10 +1,10 @@
 import os
 import csv
 import datetime
-
-
-class ListOperator:
-    pass
+# from Media import Media
+from Movies import Movie
+from Games import Game
+from ListOperator import ListOperator
 
 
 class EntertainmentCenter:
@@ -35,9 +35,26 @@ class EntertainmentCenter:
                     raise ValueError("CSV file is not correct")
 
     def save(self):
+        csv_data = []
         for collection in (self.music, self.books, self.games, self.movies):
             for inst in collection:
-                inst.save(self)
+                row = []
+                if isinstance(inst, Book):
+                    row.append('1')
+                elif isinstance(inst, Track):
+                    row.append('2')
+                elif isinstance(inst, Game):
+                    row.append('3')
+                elif isinstance(inst, Movie):
+                    row.append('4')
+                row.extend([inst.id, inst.name, inst.author, inst.year,
+                            inst.genre, inst.rating, inst.age_restriction, *inst.get_args()])
+                csv_data.append(list(map(str, row)))
+        if os.path.exists(self.path_to_file):
+            os.remove(self.path_to_file)
+        with open(self.path_to_file, mode='w', encoding='utf-8') as file:
+            writer = csv.writer(file, delimiter=',', quotechar='|')
+            writer.writerows(csv_data)
 
 
 BOOK: '<type:1 - book>,<name>,<author>,<year>,<genre>,<ration>,<age_restriction>,<filename>'
@@ -64,4 +81,4 @@ def save(self, center_inst, obj_inst, *args):
 
 
 if __name__ == '__main__':
-    print(EntertainmentCenter().__class__)
+    pass

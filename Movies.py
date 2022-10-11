@@ -2,7 +2,8 @@ import wikipediaapi
 import webbrowser
 from datetime import datetime
 
-from main import Media, EntertainmentCenter, save
+from main import EntertainmentCenter, save
+from Media import Media
 
 
 # TODO doc strings with required data types
