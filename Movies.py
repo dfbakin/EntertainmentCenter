@@ -1,7 +1,7 @@
 import wikipediaapi
 import webbrowser
 from datetime import datetime
-
+import os
 from main import EntertainmentCenter
 from Media import Media
 
@@ -35,6 +35,8 @@ class Movie(Media):
         filename, duration, director, main_actor, year, short_description = args[-6:]
         super().__init__(*args[:-6])
         self.__filename = filename
+        if not os.path.exists(filename):
+            open(filename, mode='w').close()
         self._duration = duration
         self._director = director
         self._main_actor = main_actor
