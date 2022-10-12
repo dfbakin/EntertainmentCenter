@@ -9,9 +9,12 @@ class ListOperator:
         self.media: list[Media] = []
         self.type = elem_type
 
+    # adding a new element to the media
     def add(self, element: Media):
         return self.media.append(element)
 
+    # sorting and returning collection by a key
+    # view code sample in main.py
     def sort(self, key: str):
         # TODO
         # test this Value check
@@ -23,6 +26,7 @@ class ListOperator:
 
         self.media = sorted(self.media, key=operator.attrgetter(key))
 
+    # the following method deletes instances that do not satisfy the key
     def filter(self, key: str, value):
 
         if not isinstance(key, str):
@@ -38,6 +42,9 @@ class ListOperator:
         set_of_media = set(self.media)
         set_of_other_media = set(other.media)
         return list(set_of_media.intersection(set_of_other_media))
+
+    def __bool__(self):
+        return bool(self.media)
 
     def __sub__(self, other: "ListOperator"):
         set_of_media = set(self.media)
