@@ -9,6 +9,10 @@ Entertainment center is a simple education project for HSE. It offers convenient
 - Launch program
 - And enjoy out library
 
+## UML Diagram
+<p align="center">
+  <img src="https://github.com/MrEmgin/EntertainmentCenter/blob/main/blob/images/UML.jpg?raw=true" width="900" title="UML">
+</p>
 
 ## Features
 
