@@ -3,7 +3,7 @@ import csv
 import datetime
 from random import choice
 
-# from Media import Media
+# import only if file is run, not imported
 if __name__ == '__main__':
     from Movies import Movie
     from Games import Game
@@ -11,14 +11,17 @@ if __name__ == '__main__':
     from Book import Book
 
 
+# main class of the project: manages collections of media
 class EntertainmentCenter:
     def __init__(self):
         # self.music = ListOperator(Track)
         self.books = ListOperator(Book)
         self.games = ListOperator(Game)
         self.movies = ListOperator(Movie)
+        # default path to the save file is generated with the current timestamp
         self.path_to_file = f"data/{int(datetime.datetime.now().timestamp())}.csv"
 
+    # the following methods prints as many lines as requires
     def print_lines(self, num_of_lines=10, print_all=False):
         print('printing list of media instances...')
         i = 0
@@ -34,12 +37,16 @@ class EntertainmentCenter:
 
     def print_random_media(self, num_of_lines=5):
         cnt = 0
+        if not (self.games or self.books or self.movies):
+            raise ValueError('All collections are empty')
         while cnt < num_of_lines:
+            # random collection
             collection = choice([self.games, self.books, self.movies])
             print(choice(collection.media))
             cnt += 1
         print('====================')
 
+    # method to load data from CSV file
     def load(self, path_to_file='data/sample.csv'):
         if not os.path.exists(path_to_file):
             raise FileNotFoundError(f"File {path_to_file} not found.")
@@ -51,8 +58,6 @@ class EntertainmentCenter:
                     continue
                 if row[0] == '1':
                     self.books.add(Book(*row[1:]))
-                # elif row[0] == '2':
-                # self.music.add(Track(*row[1:]))
                 elif row[0] == '3':
                     self.games.add(Game(*row[1:]))
                 elif row[0] == '4':
@@ -60,19 +65,20 @@ class EntertainmentCenter:
                 else:
                     raise ValueError("CSV file is not correct")
 
+    # method to save all data of media to default or custom CSV file
     def save(self, special_path=None):
         csv_data = []
         for collection in (self.music, self.books, self.games, self.movies):
             for inst in collection.media:
                 row = []
+                # type of obj  is the first parameter in CSV file
                 if isinstance(inst, Book):
                     row.append('1')
-                # elif isinstance(inst, Track):
-                # row.append('2')
                 elif isinstance(inst, Game):
                     row.append('3')
                 elif isinstance(inst, Movie):
                     row.append('4')
+                # adding the rest of the attributes
                 row.extend([inst.name, inst.author, inst.year,
                             inst.genre, inst.rating, inst.age_restriction, *inst.get_args()])
                 csv_data.append(list(map(str, row)))
