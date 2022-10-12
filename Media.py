@@ -1,62 +1,42 @@
-import hashlib
-from random import randint
-
-
-# import Author.author
-
 # TODO all integers and bools to str and then valid data:
 #  whether it's possible to convert to required type
 class Media:
     """
     # name -> str  # название книги
-    # author -> Author  # автор книги
+    # author -> str  # автор книги
     # year -> int  # год написания
     # genre -> genre  # жанр
     # rating -> float  # оценка книги в широких массах
     # age_restriction -> int  # возрастное ограничение
     """
 
-    def __init__(self, name: str = "Some media", author: str = "Ivan Ivanov", year: int = 0, genre: str = "",
-                 rating: int = 0,
-                 age_restriction: int = 21):
-        if not isinstance(name, str):
-            raise TypeError("Name is not a string")
-        self._name = name
+    def __init__(self, name: str = "Some media", author: str = "Ivan Ivanov", year: str = "1970", genre: str =
+    "default_genre",
+                 rating: str = "0",
+                 age_restriction: str = "21"):
 
-        # TODO automate
-        year = int(year)
-        rating = int(rating)
-        age_restriction = int(age_restriction)
+        self.name = name
 
-        # TODO uncomment
-        # implment Author?
-        # if not isinstance(author, Author.author):
-        # raise TypeError("Author is not an instance of Author class")
-        self._author = author
-        # TODO you're double checking arguments,
-        #  because @<class_atribute>.setter method is called every time when you run "self.<class_atribute> = value"
-        #  just for reference: "https://stackoverflow.com/questions/2627002/whats-the-pythonic-way-to-use-getters-and-setters"
-        if not isinstance(year, int):
-            print(year)
+        if not year.isdigit():
             raise TypeError("Year is not an integer")
-        self._year = year
+        self.year = int(year)
 
-        if not isinstance(genre, str):
-            raise TypeError("Genre is not a string")
-        self._genre = genre
-
-        if not isinstance(rating, int):
+        if not rating.isdigit():
             raise TypeError("Rating is not an integer")
-        self._rating = rating
+        self.rating: int = int(rating)
 
-        if not isinstance(age_restriction, int):
+        if not age_restriction.isdigit():
             raise TypeError("Age_restriction is not an integer")
-        self._age_restriction = age_restriction
+        self.age_restriction: int = int(age_restriction)
 
-        # generating hash for unique ID
-        # self.id = hashlib.md5(str(randint(1, 10 ** 4)).encode()).digest()[randint(0, 15):randint(16, 27)]
+        self.author = author
 
-    # TODO property can't be called the same as attribute.
+        self.genre = genre
+
+    def __hash__(self):
+        return hash(self.name)
+
+    # property can't be called the same as attribute.
     #  "RecursionError: maximum recursion depth exceeded" because return self.name calls @property
     #  that's why we use "_" in front of a var name (I didn't know the reason too)
     @property
@@ -129,6 +109,12 @@ class Media:
     def __str__(self):
         return f"Name: {self.name}; Authored by {self.author}; Genre:  {self.genre}; Rating of " \
                f"{self.rating}; For people over {self.age_restriction}."
+
+    def __eq__(self, other: "Media"):
+        if self.__hash__() == other.__hash__():
+            return 1
+        else:
+            return 0
 
 # TODO
 # save(inst_type, *args):

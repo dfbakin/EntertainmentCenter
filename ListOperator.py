@@ -1,24 +1,12 @@
 import operator
-from enum import Enum
-
-from Media import Media
 from random import choice
 
-
-class MediaType(Enum):
-    Unknown: 0
-    Book: 1
-    Movie: 2
-    Game: 3
-    Track: 4
+from Media import Media
 
 
-# TODO can be done iterable
 class ListOperator:
     def __init__(self, elem_type):
         self.media: list[Media] = []
-        # TODO implement Enum (did't figure out how to)
-        # self.type = MediaType.Unknown
         self.type = elem_type
 
     def add(self, element: Media):
@@ -46,22 +34,19 @@ class ListOperator:
         # test this filtering
         self.media = [elem for elem in filter(lambda x: x.key == value, self.media)]
 
-    # TODO fix
-    # doesn't work because of comparasion of custom classes in python
-    # hash? id?
-    def __and__(self, other: list[Media]):
+    def __and__(self, other: "ListOperator"):
         set_of_media = set(self.media)
-        set_of_other_media = set(other)
+        set_of_other_media = set(other.media)
         return list(set_of_media.intersection(set_of_other_media))
 
-    def __sub__(self, other: list[Media]):
+    def __sub__(self, other: "ListOperator"):
         set_of_media = set(self.media)
-        set_of_other_media = set(other)
+        set_of_other_media = set(other.media)
         return list(set_of_media.difference(set_of_other_media))
 
-    def __add__(self, other: list[Media]):
+    def __add__(self, other: "ListOperator"):
         # extends the self.media and returns it
-        return self.media.extend(other)
+        return self.media.extend(other.media)
 
     def print(self, lines_number: int):
         printing_str = ""
@@ -72,6 +57,11 @@ class ListOperator:
     def pick_random(self):
         return choice(self.media)
 
+    def __getitem__(self, item_number):
+        if item_number >= len(self.media):
+            IndexError("Wrong index")
+        else:
+            return self.media[item_number]
 # 	@methods
 #
 # 	add -> if not isinstance(new_inst, type)

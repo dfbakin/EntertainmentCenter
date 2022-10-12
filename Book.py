@@ -35,3 +35,7 @@ class Book(Media):
 
     def get_content(self):
         return self.get_file_obj().read().strip()
+
+    def get_args(self):
+        return [self.filename,
+                self.num_of_pages]

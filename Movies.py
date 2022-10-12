@@ -1,9 +1,9 @@
-import wikipediaapi
 import webbrowser
-from datetime import datetime
 
-from main import EntertainmentCenter
+import wikipediaapi
+
 from Media import Media
+from main import EntertainmentCenter
 
 
 # TODO doc strings with required data types
@@ -32,14 +32,14 @@ class Movie(Media):
     '''
 
     def __init__(self, *args):
-        filename, duration, director, main_actor, year, short_description = args[-6:]
-        super().__init__(*args[:-6])
+        filename, duration, director, main_actor, short_description = args[-5:]
+        super().__init__(*args[:-5])
         self.__filename = filename
         self._duration = duration
         self._director = director
         self._main_actor = main_actor
         self._short_description = short_description
-        self._year = year
+
 
     # getters and setters
     @property
@@ -88,23 +88,13 @@ class Movie(Media):
             raise ValueError('Length of description must be less than 500 symbols')
         self._short_description = description
 
-    @property
-    def year(self):
-        return self._year
-
-    @year.setter
-    def year(self, year):
-        if type(year) != int:
-            raise TypeError('Year must be an integer')
-        if year > datetime.now().year:
-            raise ValueError('Wow. The film from the future. LMAO')
-        self._year = year
-
     def __str__(self):
-        return f'Фильм снят режисером {self.director} в {self.year} году. В главной роли снимается {self.main_actor}. {self.short_description}'
+        return f'Фильм снят режиссером {self.director} в {self.year} году. В главной роли снимается' \
+               f' {self.main_actor}. {self.short_description}'
 
     def __repr__(self):
-        return f'Фильм снят режисером {self.director} в {self.year} году. В главной роли снимается {self.main_actor}. {self.short_description}'
+        return f'Фильм снят режиссером {self.director} в {self.year} году. В главной роли снимается' \
+               f' {self.main_actor}. {self.short_description}'
 
     def open_wiki(self):
         '''
@@ -125,10 +115,10 @@ class Movie(Media):
 
     def save(self, ent_center_inst: EntertainmentCenter):
         save(ent_center_inst, self,
-             [self.__filename, self.duration, self.director, self.main_actor, self.short_description, self.year])
+             [self.__filename, self.duration, self.director, self.main_actor, self.short_description])
 
 
-Movie("Some media", "Ivan Ivanov", 0, "fiction", 0, 21, '123', 12, 'qwe', 'ewq', 1974,
+Movie("Some media", "Ivan Ivanov", "1970", "fiction", "0", "21", '123', "12", 'qwe', 'ewq',
       '12345678')
 
 

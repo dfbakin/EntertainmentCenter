@@ -1,6 +1,6 @@
-import os
 import csv
 import datetime
+import os
 from random import choice
 
 # from Media import Media
@@ -62,7 +62,8 @@ class EntertainmentCenter:
 
     def save(self, special_path=None):
         csv_data = []
-        for collection in (self.music, self.books, self.games, self.movies):
+
+        for collection in (self.books, self.games, self.movies):
             for inst in collection.media:
                 row = []
                 if isinstance(inst, Book):
@@ -84,7 +85,7 @@ class EntertainmentCenter:
             writer.writerows(csv_data)
 
 
-# BOOK: '<type:1 - book>,<name>,<author>,<year>,<genre>,<ration>,<age_restriction>,<filename>'
+# BOOK: '<type:1 - book>,<name>,<author>,<year>,<genre>,<rating>,<age_restriction>,<filename>'
 
 
 if __name__ == '__main__':
@@ -94,24 +95,21 @@ if __name__ == '__main__':
     print('3 random media')
     sample.print_random_media(num_of_lines=3)
 
-    # TODO test sorting: 1 ListOperator - 2 keys one by one
-    print('sorted list of <what> by <key_1>:')
-    # sample.music.sort()
-    print('sorted list of <what> by <key_2>:')
-    # sample.music.sort()
-    print()
-
     center_1 = EntertainmentCenter()
     center_1.load('data/sample_1.csv')
     center_2 = EntertainmentCenter()
     center_2.load('data/sample_2.csv')
 
+    print('====================')
+    print('6 random media')
+    center_2.print_random_media(num_of_lines=6)
+
     print('books in common:')
-    # for elem in (center_1.books & center_2.books):
-    # print(elem)
+    for elem in (center_1.books & center_2.books):
+        print(elem)
     print()
 
-    sample.games.add(Game('GTA5', 'Rockstar', 2015, 'Roleplay/Action', 96, 18, 'PC/PS4/PS3', True))
+    sample.games.add(Game('GTA5', 'Rockstar', '2015', 'Roleplay/Action', '96', '18', 'PC/PS4/PS3', True))
     sample.save('data/new_sample.csv')
 
     """quit()
