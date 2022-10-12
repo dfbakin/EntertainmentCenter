@@ -29,7 +29,7 @@ Entertainment Center uses a number of open source projects to work properly:
 And of course Entertainment Center itself is open source with a [public repository][dill]
  on GitHub.
 
-## Installation
+## Code example
 
 ```py
     import EntertainmentCenter
