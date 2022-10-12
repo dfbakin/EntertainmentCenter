@@ -45,7 +45,6 @@ class Movie(Media):
         self._main_actor = main_actor
         self._short_description = short_description
 
-
     # getters and setters
     @property
     def filename(self):

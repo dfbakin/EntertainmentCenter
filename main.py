@@ -106,6 +106,18 @@ if __name__ == '__main__':
     center_2 = EntertainmentCenter()
     center_2.load('data/sample_2.csv')
 
+    print('sorted list of Movies by "year":')
+    sample.movies.sort('year', print_res=True)
+    print('=============')
+    sample.movies.sort('year', print_res=True, reverse=True)
+    print()
+    print('sorted list of movies by name:')
+    sample.movies.sort('name', print_res=True)
+    print('=============')
+    sample.movies.sort('name', print_res=True, reverse=True)
+
+    print()
+
     print('====================')
     print('6 random media')
     center_2.print_random_media(num_of_lines=6)
@@ -115,7 +127,10 @@ if __name__ == '__main__':
         print(elem)
     print()
 
-    sample.games.add(Game('GTA5', 'Rockstar', '2015', 'Roleplay/Action', '96', '18', 'PC/PS4/PS3', True))
+    new_game = Game('GTA5', 'Rockstar', '2015', 'Roleplay/Action', '96', '18', 'PC/PS4/PS3', True)
+    print(f'adding{new_game}')
+    sample.games.add(new_game)
+    print()
     sample.save('data/new_sample.csv')
 
     """quit()
@@ -130,5 +145,3 @@ if __name__ == '__main__':
     sample.movies.add(
         Game("the media", "vitaliy", 0, "shooter", 0, 18, ))
     sample.save(special_path='data/test_sample.csv')"""
-
-

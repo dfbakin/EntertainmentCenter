@@ -15,16 +15,30 @@ class ListOperator:
 
     # sorting and returning collection by a key
     # view code sample in main.py
-    def sort(self, key: str):
+    def sort(self, key: str, print_res=False, reverse=False):
         # TODO
         # test this Value check
         # test for sorting by attributes, that are not in Media
         if not isinstance(key, str):
             raise TypeError("Key must be a string")
-        if key not in Media.__dir__:
-            raise ValueError("Key must be a name of an attribute")
+        if not self.media:
+            raise ValueError('Media list is empty')
+        if '_' + key not in vars(self.media[0]):
+            raise KeyError('Key is not from the valid list')
+        '''print(123)
+        print(dir(self))
+        quit()
+        if key not in dir(self):
+            raise ValueError("Key must be a name of an attribute")'''
 
-        self.media = sorted(self.media, key=operator.attrgetter(key))
+        self.media = sorted(self.media, key=lambda x: vars(x)['_' + key], reverse=reverse)
+        if print_res:
+            printing_str = ""
+            cnt = 0
+            for element in self.media:
+                printing_str += str(vars(element)['_' + key])[:10] + ' - ' + str(element.__repr__()) + '\n'
+                cnt += 1
+            print(printing_str.strip())
 
     # the following method deletes instances that do not satisfy the key
     def filter(self, key: str, value):
@@ -34,8 +48,6 @@ class ListOperator:
         if key not in Media.__dir__:
             raise ValueError("Key must be a name of an attribute")
 
-        # TODO
-        # test this filtering
         self.media = [elem for elem in filter(lambda x: x.key == value, self.media)]
 
     def __and__(self, other: "ListOperator"):
@@ -55,11 +67,15 @@ class ListOperator:
         # extends the self.media and returns it
         return self.media.extend(other.media)
 
-    def print(self, lines_number: int):
+    def print(self, lines_number: int = 5, print_all=False):
         printing_str = ""
-        for element in self.media[:lines_number]:
-            printing_str += str(element.__repr__())
-        return printing_str
+        cnt = 0
+        for element in self.media:
+            printing_str += str(element.__repr__()) + '\n'
+            cnt += 1
+            if not print_all and cnt >= lines_number:
+                break
+        print(printing_str)
 
     def pick_random(self):
         return choice(self.media)
@@ -80,7 +96,6 @@ class ListOperator:
 # 		deleted)
 # 		if cnt == 0:
 # 			Warning('...')
-#
 # 	get_random
 # 	save() - implement
 # 	save()
