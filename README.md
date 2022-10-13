@@ -32,6 +32,15 @@ Entertainment Center uses a number of open source projects to work properly:
 
 And of course Entertainment Center itself is open source with a [public repository][dill]
  on GitHub.
+ 
+ ## Installation
+
+```
+git clone https://github.com/MrEmgin/EntertainmentCenter.git
+cd EntertainmentCenter
+sudo pip install -r requirements.txt
+python main.py
+```
 
 ## Code example
 
