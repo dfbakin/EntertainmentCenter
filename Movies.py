@@ -9,9 +9,6 @@ import os
 from main import EntertainmentCenter
 
 
-# TODO doc strings with required data types
-#  probably comments (I can't imagine where they are necessary here)
-
 def lang_of_symbol(c: str):
     """
 
@@ -25,14 +22,14 @@ def lang_of_symbol(c: str):
 
 
 class Movie(Media):
-    '''
-    #filename -> str # private arg, sets only in initialization.
-    #duration -> int # duration of the film
-    #director -> str # Name of the director
-    #main_actor -> str # Name of the main actor
-    #short_description -> str, len(description) <= 500 (because short) # description of the film
-    #year -> int # the year the film was shot
-    '''
+    """
+	#filename -> str # private arg, sets only in initialization.
+	#duration -> int # duration of the film
+	#director -> str # Name of the director
+	#main_actor -> str # Name of the main actor
+	#short_description -> str, len(description) <= 500 (because short) # description of the film
+	#year -> int # the year the film was shot
+	"""
 
     def __init__(self, *args):
         filename, duration, director, main_actor, short_description = args[-5:]
@@ -101,9 +98,9 @@ class Movie(Media):
                f' {self.main_actor}. {self.short_description}'
 
     def open_wiki(self):
-        '''
-        This function open in browser the wiki page of film
-        '''
+        """
+		This function open in browser the wiki page of film
+		"""
         lang = lang_of_symbol(self.name[0])  # get lang of Wiki page
         wiki = wikipediaapi.Wikipedia(lang)
         page = wiki.page(f'{self.name}(film)')  # get Wiki page
