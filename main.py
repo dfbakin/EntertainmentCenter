@@ -10,8 +10,20 @@ if __name__ == '__main__':
     from ListOperator import ListOperator
     from Book import Book
 
+'''
+EntertainmentCenter
+    creates 3 collections for different media and provides overall data management
+    
+    for each attribute there is a getter and setter
+    
+    print_lines(int: num_of_lines=10, bool: print_all=False) -> None
+    
+    def load(str: path_to_file='data/sample.csv') -> None
+    def save(str: path_to_file='data/sample.csv') -> None
 
-# main class of the project: manages collections of media
+'''
+
+
 class EntertainmentCenter:
     def __init__(self):
         # self.music = ListOperator(Track)

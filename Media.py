@@ -1,5 +1,14 @@
-# TODO all integers and bools to str and then valid data:
-#  whether it's possible to convert to required type
+'''
+Media
+    name: str
+    author: str
+    year: int
+    genre: str
+
+    every attribute has getter and setter that returns int if apropriate, else str
+'''
+
+
 class Media:
     """
     # name -> str  # название книги
