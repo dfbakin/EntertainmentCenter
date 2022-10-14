@@ -1,6 +1,14 @@
 from Media import Media
 
+'''
+Book
+    args list consists of all necessary params for Media and:
+        platform: str
+        has_multiplayer: bool
+        every attribute has getter and setter that returns int if appropriate, else str
 
+    def get_args(self) -> list of unique from class Media attributes 
+'''
 class Game(Media):
     # TODO
     # change *args to explicitly stated arguments or kwargs
