@@ -5,13 +5,38 @@ from Media import Media
 
 
 class ListOperator:
+    '''
+    ListOperator
+    Attributes:
+        media: list[Media]
+        type: any Class derived from Media class
+    every attribute has getter and setter
+
+    Methods:
+        def add(element: Media) -> Media
+        adds a new element to the media
+
+        def sort(key: str)
+        sorts media by the key
+
+        def filter(self, key: str, value)
+        filters media by the key which should be equal to value (example key=age_restriction, value = 21)
+
+        def print(lines_number: int)
+        prints first "line_number" elements
+
+        def pick_random(self) -> Media
+        returns random Media from media list
+
+    '''
     def __init__(self, elem_type):
         self.media: list[Media] = []
         self.type = elem_type
 
     # adding a new element to the media
-    def add(self, element: Media):
-        return self.media.append(element)
+    def add(self, element: Media) -> list[Media] :
+        self.media.append(element)
+        return self.media
 
     # sorting and returning collection by a key
     # view code sample in main.py
@@ -61,7 +86,7 @@ class ListOperator:
             printing_str += str(element.__repr__())
         return printing_str
 
-    def pick_random(self):
+    def pick_random(self) -> Media:
         return choice(self.media)
 
     def __getitem__(self, item_number):
@@ -69,25 +94,3 @@ class ListOperator:
             IndexError("Wrong index")
         else:
             return self.media[item_number]
-# 	@methods
-#
-# 	add -> if not isinstance(new_inst, type)
-# 		filter(author=None, below_rating=0, name=None,
-# 		       earlier_year=datetime.datetime.now().year(?), below_age_restrictions = 21)->int = cnt(how
-# 		many
-# 		books
-# 		were
-# 		deleted)
-# 		if cnt == 0:
-# 			Warning('...')
-#
-# 	get_random
-# 	save() - implement
-# 	save()
-# 	to
-# 	all
-# 	instances
-#
-# 	print(lines=10, print_all=False) -> < lines > strs
-#
-# 	override - & +
