@@ -5,13 +5,38 @@ from Media import Media
 
 
 class ListOperator:
+    '''
+    ListOperator
+    Attributes:
+        media: list[Media]
+        type: any Class derived from Media class
+    every attribute has getter and setter
+
+    Methods:
+        def add(element: Media) -> Media
+        adds a new element to the media
+
+        def sort(key: str)
+        sorts media by the key
+
+        def filter(self, key: str, value)
+        filters media by the key which should be equal to value (example key=age_restriction, value = 21)
+
+        def print(lines_number: int)
+        prints first "line_number" elements
+
+        def pick_random(self) -> Media
+        returns random Media from media list
+
+    '''
     def __init__(self, elem_type):
         self.media: list[Media] = []
         self.type = elem_type
 
     # adding a new element to the media
-    def add(self, element: Media):
-        return self.media.append(element)
+    def add(self, element: Media) -> list[Media] :
+        self.media.append(element)
+        return self.media
 
     # sorting and returning collection by a key
     # view code sample in main.py
@@ -77,7 +102,7 @@ class ListOperator:
                 break
         print(printing_str)
 
-    def pick_random(self):
+    def pick_random(self) -> Media:
         return choice(self.media)
 
     def __getitem__(self, item_number):
@@ -96,6 +121,7 @@ class ListOperator:
 # 		deleted)
 # 		if cnt == 0:
 # 			Warning('...')
+#
 # 	get_random
 # 	save() - implement
 # 	save()
