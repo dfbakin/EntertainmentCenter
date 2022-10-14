@@ -6,10 +6,12 @@ from Media import Media
 
 class ListOperator:
     """
-    ListOperator
+    ListOperator - is the class for doing different operations(sort/filter/add/print/pick_random) on the lists of
+    Media
+
     Attributes:
         media: list[Media]
-        type: any Class derived from Media class
+        type: any Class derived from Media class (type of the Media, which is in the list)
     every attribute has getter and setter
 
     Methods:
